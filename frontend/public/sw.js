@@ -1,12 +1,9 @@
-const CACHE_NAME = 'sorriso-agiotagem-v1';
+const CACHE_NAME = 'sorriso-agiotagem-v2';
+const BASE_PATH = '/SorrisoAgiotagem';
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/src/main.jsx',
-  '/src/App.jsx',
-  '/src/index.css',
-  '/src/mobile.css',
-  '/logo.png'
+  `${BASE_PATH}/`,
+  `${BASE_PATH}/index.html`,
+  `${BASE_PATH}/logo.png`
 ];
 
 // Instalar Service Worker e fazer cache dos arquivos
@@ -74,7 +71,7 @@ self.addEventListener('fetch', (event) => {
 
           // Se não tiver no cache e for navegação, retorna index.html
           if (event.request.mode === 'navigate') {
-            return caches.match('/index.html');
+            return caches.match(`${BASE_PATH}/index.html`);
           }
         });
       })
