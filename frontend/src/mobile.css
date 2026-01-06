@@ -1,0 +1,842 @@
+/* ========================================
+   RESPONSIVE DESIGN - MOBILE OPTIMIZATION
+   ======================================== */
+
+@media (max-width: 768px) {
+  /* Header Mobile */
+  .header {
+    padding: 16px 20px;
+    flex-direction: row;
+    gap: 12px;
+    position: relative;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo {
+    height: 40px;
+  }
+
+  h1 {
+    font-size: 0;
+    margin: 0;
+    padding: 0;
+    display: none;
+  }
+
+  /* Notificações Mobile */
+  .notificacoes-container {
+    position: relative;
+    margin-left: 0;
+  }
+
+  .notificacoes-badge {
+    width: 40px;
+    height: 40px;
+    box-shadow: 0 2px 8px rgba(231, 76, 60, 0.4);
+  }
+
+  .badge-icon {
+    font-size: 20px;
+  }
+
+  .badge-count {
+    width: 18px;
+    height: 18px;
+    font-size: 11px;
+    top: -3px;
+    right: -3px;
+  }
+
+  /* Overlay para mobile */
+  .notificacoes-overlay {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    background: rgba(0, 0, 0, 0.6) !important;
+    z-index: 9998 !important;
+    animation: fadeIn 0.3s ease-out !important;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .notificacoes-detalhes {
+    position: fixed !important;
+    top: 50vh !important;
+    left: 50vw !important;
+    transform: translate(-50%, -50%) !important;
+    width: calc(100% - 40px) !important;
+    max-width: 450px !important;
+    height: auto !important;
+    max-height: 85vh !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border-radius: 20px !important;
+    animation: scaleIn 0.3s ease-out !important;
+    z-index: 9999 !important;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4) !important;
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+    box-sizing: border-box !important;
+  }
+
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+
+  .notificacoes-header {
+    padding: 16px 20px;
+    border-bottom: 2px solid #ECF0F1;
+    background: #FFFFFF;
+    border-radius: 20px 20px 0 0;
+    flex-shrink: 0 !important;
+  }
+
+  .notificacoes-header h3 {
+    font-size: 16px;
+  }
+
+  .btn-fechar {
+    width: 28px;
+    height: 28px;
+    font-size: 20px;
+  }
+
+  .notificacoes-lista {
+    padding: 8px;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    border-radius: 0 0 20px 20px;
+    flex: 1 !important;
+    min-height: 0 !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  .notificacao-grupo {
+    margin-bottom: 16px;
+  }
+
+  .notificacao-grupo h4 {
+    font-size: 13px;
+    margin: 0 0 8px 8px;
+    padding: 6px 10px;
+  }
+
+  .notificacao-item {
+    padding: 12px;
+    margin-bottom: 6px;
+    border-radius: 12px;
+  }
+
+  .notificacao-item:hover {
+    transform: none;
+  }
+
+  .notificacao-info strong {
+    font-size: 15px;
+    margin-bottom: 4px;
+  }
+
+  .notificacao-info p {
+    font-size: 13px;
+    margin: 3px 0;
+  }
+
+  .notificacao-info .data-venc {
+    font-size: 13px;
+  }
+
+  .notificacao-info .dias-atraso,
+  .notificacao-info .dias-restantes {
+    font-size: 12px;
+  }
+
+  /* Tabs Mobile */
+  .tabs {
+    padding: 8px 4px !important;
+    gap: 4px !important;
+    overflow-x: visible;
+    -webkit-overflow-scrolling: touch;
+    display: grid !important;
+    grid-template-columns: 1fr 1fr 1fr !important;
+    flex-direction: row;
+  }
+
+  .tab {
+    padding: 6px 4px !important;
+    font-size: 9px !important;
+    white-space: normal;
+    text-align: center;
+    flex-shrink: 1;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.2;
+    border-radius: 50px !important;
+  }
+
+  .tab:hover {
+    transform: none;
+  }
+
+  .tab.active::after {
+    height: 2px;
+  }
+
+  /* Content Mobile */
+  .tab-content {
+    padding: 20px 16px;
+  }
+
+  /* Form Container Mobile */
+  .form-container {
+    padding: 24px 20px;
+    border-radius: 20px;
+    background: #ffffff !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-group label {
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+
+  .form-group input {
+    padding: 12px 14px;
+    font-size: 14px;
+    border: 2px solid #bdc3c7 !important;
+    color: #2c3e50 !important;
+  }
+
+  .form-group input:focus {
+    border-color: #2ecc71 !important;
+  }
+
+  .form-group input::placeholder {
+    color: #7f8c8d !important;
+  }
+
+  /* Buttons Mobile */
+  .btn {
+    padding: 12px 24px;
+    font-size: 13px;
+    width: 100%;
+    min-height: 44px;
+    border-radius: 50px !important;
+  }
+
+  .btn-secondary {
+    margin-left: 0;
+    margin-top: 8px;
+  }
+
+  .form-container > div {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Botões de navegação em colunas no mobile */
+  .btn-add-emprestimo,
+  .btn-danger {
+    width: 100%;
+    min-height: 44px;
+    margin-left: 0 !important;
+  }
+
+  /* Filter Container Mobile */
+  .filter-container {
+    padding: 16px;
+    margin-bottom: 16px;
+    background: rgba(0, 77, 64, 0.2) !important;
+    border-radius: 20px !important;
+  }
+
+  .filter-container input {
+    padding: 12px 14px 12px 48px;
+    font-size: 14px;
+    border-radius: 50px !important;
+    background: rgba(0, 77, 64, 0.4) !important;
+    color: #ffffff !important;
+    border: 2px solid rgba(255, 255, 255, 0.2) !important;
+  }
+
+  .filter-container input::placeholder {
+    color: #bdc3c7 !important;
+  }
+
+  .filter-container input:focus {
+    background: rgba(0, 77, 64, 0.6) !important;
+    border-color: #2ecc71 !important;
+  }
+
+  /* Cliente Cards Mobile */
+  .clientes-lista {
+    gap: 16px;
+  }
+
+  .cliente-item {
+    padding: 20px 16px;
+    border-radius: 20px;
+    background: #ffffff !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+  }
+
+  .cliente-item:hover {
+    transform: none;
+  }
+
+  .cliente-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+  }
+
+  .cliente-header h3 {
+    font-size: 20px;
+    width: 100%;
+    padding-right: 40px;
+  }
+
+  .cliente-actions {
+    width: 100%;
+    flex-direction: column;
+    gap: 8px;
+    align-items: stretch;
+  }
+
+  .btn-expand {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 32px;
+    height: 32px;
+    font-size: 11px;
+    border-radius: 50% !important;
+  }
+
+  .btn-expand:hover {
+    background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%) !important;
+  }
+
+  .cliente-badges {
+    margin-top: 8px;
+  }
+
+  .badges-container {
+    gap: 6px;
+  }
+
+  .cliente-actions .btn {
+    width: 100% !important;
+    padding: 10px 16px;
+    font-size: 12px;
+    margin: 0 !important;
+  }
+
+  .cliente-actions .btn-add-emprestimo {
+    order: 1;
+  }
+
+  .cliente-actions .btn-danger {
+    order: 2;
+  }
+
+  .cliente-info p {
+    font-size: 14px;
+  }
+
+  /* Emprestimo Cards Mobile */
+  .emprestimo-card {
+    padding: 16px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+    background: #ffffff !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+  }
+
+  .emprestimo-card:hover {
+    transform: none;
+  }
+
+  .emprestimo-card.emprestimo-pago::before {
+    top: 12px;
+    right: 12px;
+    padding: 4px 12px;
+    font-size: 10px;
+    border-radius: 50px !important;
+  }
+
+  .emprestimo-header {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .emprestimo-header p {
+    font-size: 13px;
+  }
+
+  .emprestimo-actions {
+    width: 100%;
+    align-items: stretch;
+  }
+
+  .emprestimo-actions .status-badge {
+    text-align: center;
+  }
+
+  .btn-delete-emprestimo {
+    width: 100%;
+    padding: 10px 16px;
+    font-size: 11px;
+  }
+
+  /* Parcelas Mobile */
+  .parcela-item {
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 20px !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
+  }
+
+  .parcela-item:hover {
+    transform: none;
+  }
+
+  .parcela-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .parcela-info strong {
+    font-size: 14px;
+  }
+
+  .parcela-info p {
+    font-size: 12px;
+  }
+
+  .parcela-valores {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .parcela-valores > div {
+    width: 100%;
+  }
+
+  .parcela-acoes {
+    width: 100%;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .btn-whatsapp-parcela {
+    width: 100%;
+    border-radius: 50px !important;
+    height: 44px;
+    font-size: 16px;
+  }
+
+  .btn-toggle-pago {
+    width: 100%;
+    padding: 10px 16px;
+    font-size: 12px;
+    text-align: center;
+    border-radius: 50px !important;
+  }
+
+  .btn-toggle-pago:hover {
+    transform: none;
+  }
+
+  /* Form Overlay Mobile */
+  .emprestimo-form-overlay {
+    padding: 16px;
+    align-items: flex-end;
+    background: rgba(0, 31, 63, 0.85) !important;
+  }
+
+  .emprestimo-form-container {
+    padding: 24px 20px;
+    max-width: 100%;
+    width: 100%;
+    max-height: 85vh;
+    border-radius: 20px 20px 0 0;
+    background: #ffffff !important;
+  }
+
+  .emprestimo-form-container h3 {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+
+  .emprestimo-form-container select {
+    width: 100% !important;
+    padding: 12px 14px !important;
+    font-size: 16px !important;
+    border: 2px solid #bdc3c7 !important;
+    color: #2c3e50 !important;
+    background: #ffffff !important;
+    border-radius: 12px !important;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    height: 44px !important;
+    line-height: normal !important;
+    box-sizing: border-box !important;
+  }
+
+  .emprestimo-form-container input[type="date"] {
+    width: 100% !important;
+    padding: 12px 14px !important;
+    font-size: 16px !important;
+    border: 2px solid #bdc3c7 !important;
+    color: #2c3e50 !important;
+    background: #ffffff !important;
+    border-radius: 12px !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    height: 44px !important;
+    line-height: normal !important;
+    box-sizing: border-box !important;
+    min-height: 44px !important;
+    position: relative !important;
+  }
+
+  .emprestimo-form-container select:focus,
+  .emprestimo-form-container input[type="date"]:focus {
+    border-color: #2ecc71 !important;
+    outline: none !important;
+  }
+
+  /* Garante visibilidade e funcionalidade do calendário em mobile */
+  .emprestimo-form-container
+    input[type="date"]::-webkit-calendar-picker-indicator {
+    position: absolute !important;
+    right: 12px !important;
+    width: 24px !important;
+    height: 24px !important;
+    cursor: pointer !important;
+    opacity: 1 !important;
+    filter: none !important;
+    background: transparent !important;
+  }
+
+  .emprestimo-form-container
+    input[type="date"]::-webkit-datetime-edit-fields-wrapper {
+    padding: 0 !important;
+  }
+
+  .emprestimo-form-container input[type="date"]::-webkit-datetime-edit {
+    padding: 0 !important;
+  }
+
+  .emprestimo-form-container input[type="date"]::-webkit-datetime-edit-text {
+    padding: 0 2px !important;
+  }
+
+  .emprestimo-form-container
+    input[type="date"]::-webkit-datetime-edit-month-field,
+  .emprestimo-form-container
+    input[type="date"]::-webkit-datetime-edit-day-field,
+  .emprestimo-form-container
+    input[type="date"]::-webkit-datetime-edit-year-field {
+    padding: 0 2px !important;
+  }
+
+  .resumo-emprestimo {
+    padding: 16px;
+    margin: 16px 0;
+    border-radius: 20px !important;
+    background: linear-gradient(
+      135deg,
+      rgba(46, 204, 113, 0.1) 0%,
+      rgba(39, 174, 96, 0.1) 100%
+    ) !important;
+    border: 2px solid rgba(46, 204, 113, 0.3) !important;
+  }
+
+  .resumo-emprestimo p {
+    font-size: 14px;
+  }
+
+  .form-actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .form-actions .btn {
+    width: 100%;
+  }
+
+  /* Status Badge Mobile */
+  .status-badge {
+    padding: 5px 12px;
+    font-size: 10px;
+    letter-spacing: 0.8px;
+    border-radius: 8px !important;
+  }
+
+  /* Empty State Mobile */
+  .empty-state {
+    padding: 40px 20px;
+    border-radius: 20px !important;
+    background: #ffffff !important;
+  }
+
+  .empty-state p {
+    font-size: 16px;
+  }
+
+  /* Success Message Mobile */
+  .success-message {
+    padding: 12px 16px;
+    font-size: 14px;
+    border-radius: 50px !important;
+  }
+
+  /* Saldo Devedor Mobile */
+  .emprestimo-info .saldo-devedor {
+    font-size: 18px;
+  }
+
+  .emprestimo-info .total {
+    font-size: 16px;
+  }
+
+  /* Controle Mobile */
+  .controle-resumo-geral {
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+
+  .resumo-card {
+    padding: 10px 8px;
+    min-width: 0;
+    border-radius: 20px !important;
+    background: #ffffff !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+  }
+
+  .resumo-card.destaque {
+    background: linear-gradient(
+      135deg,
+      rgba(46, 204, 113, 0.15) 0%,
+      rgba(39, 174, 96, 0.15) 100%
+    ) !important;
+    border: 2px solid rgba(46, 204, 113, 0.3) !important;
+  }
+
+  .resumo-label {
+    font-size: 8px;
+    word-wrap: break-word;
+  }
+
+  .resumo-valor {
+    font-size: 12px !important;
+    line-height: 1.2 !important;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .controle-filtros {
+    gap: 8px;
+  }
+
+  .filtro-btn {
+    padding: 10px 16px;
+    font-size: 12px;
+    flex: 1;
+    min-width: 100px;
+    border-radius: 50px !important;
+    background: rgba(0, 77, 64, 0.3) !important;
+    border: 2px solid rgba(255, 255, 255, 0.2) !important;
+    color: #bdc3c7 !important;
+  }
+
+  .filtro-btn.active {
+    background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%) !important;
+    border-color: transparent !important;
+    color: white !important;
+  }
+
+  .controle-item {
+    padding: 20px 16px;
+    border-radius: 20px !important;
+    background: #ffffff !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+  }
+
+  .controle-item.atrasado {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.05) 0%,
+      rgba(255, 255, 255, 0.05) 100%
+    );
+  }
+
+  .controle-header {
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .btn-expand-controle {
+    width: 32px;
+    height: 32px;
+    font-size: 12px;
+  }
+
+  .controle-cliente-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .controle-cliente-info h3 {
+    font-size: 18px;
+  }
+
+  .controle-celular {
+    font-size: 13px;
+  }
+
+  .controle-status-container {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .controle-atraso {
+    font-size: 11px;
+    padding: 5px 12px;
+    border-radius: 50px !important;
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%) !important;
+  }
+
+  .controle-valores {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .controle-label {
+    font-size: 10px;
+  }
+
+  .controle-numero {
+    font-size: 18px;
+  }
+
+  .controle-numero-destaque {
+    font-size: 20px;
+  }
+
+  .controle-valor-item.destaque {
+    padding: 12px;
+    border-radius: 20px !important;
+    background: linear-gradient(
+      135deg,
+      rgba(46, 204, 113, 0.1) 0%,
+      rgba(39, 174, 96, 0.1) 100%
+    ) !important;
+    border: 2px solid rgba(46, 204, 113, 0.3) !important;
+  }
+
+  .parcelas-mini {
+    flex-direction: column;
+  }
+
+  .parcela-mini {
+    padding: 8px 12px;
+    font-size: 11px;
+    border-radius: 20px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+    align-items: flex-start !important;
+  }
+
+  .parcela-mini-atraso {
+    border-radius: 50px !important;
+    width: 100% !important;
+    display: block !important;
+    margin-top: 4px !important;
+    text-align: center !important;
+  }
+}
+
+/* Extra Small Devices (390px and below) */
+@media (max-width: 390px) {
+  .header {
+    padding: 12px 16px;
+  }
+
+  h1 {
+    display: none;
+  }
+
+  .logo {
+    height: 36px;
+  }
+
+  .tabs {
+    padding: 16px 12px 0;
+  }
+
+  .tab {
+    padding: 8px 16px;
+    font-size: 12px;
+  }
+
+  .tab-content {
+    padding: 16px 12px;
+  }
+
+  .form-container {
+    padding: 20px 16px;
+  }
+
+  .cliente-item {
+    padding: 16px 12px;
+  }
+
+  .cliente-header h3 {
+    font-size: 18px;
+  }
+
+  .emprestimo-card {
+    padding: 12px;
+  }
+
+  .btn {
+    padding: 10px 20px;
+    font-size: 12px;
+  }
+}
