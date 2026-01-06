@@ -111,7 +111,7 @@ function Controle() {
     if (resultado.sucesso) {
       alert(resultado.mensagem);
     } else {
-      alert('Erro ao exportar backup:\n' + resultado.mensagem);
+      alert("Erro ao exportar backup:\n" + resultado.mensagem);
     }
   };
 
@@ -119,22 +119,22 @@ function Controle() {
     const arquivo = event.target.files[0];
     if (!arquivo) return;
 
-    if (!arquivo.name.endsWith('.json')) {
-      alert('Por favor, selecione um arquivo JSON válido.');
+    if (!arquivo.name.endsWith(".json")) {
+      alert("Por favor, selecione um arquivo JSON válido.");
       return;
     }
 
     const confirmar = window.confirm(
-      'Importar backup?\n\n' +
-      '⚠️ IMPORTANTE:\n' +
-      '• Clientes com mesmo celular serão mesclados\n' +
-      '• Novos empréstimos serão adicionados\n' +
-      '• Dados existentes não serão apagados\n\n' +
-      'Deseja continuar?'
+      "Importar backup?\n\n" +
+        "⚠️ IMPORTANTE:\n" +
+        "• Clientes com mesmo celular serão mesclados\n" +
+        "• Novos empréstimos serão adicionados\n" +
+        "• Dados existentes não serão apagados\n\n" +
+        "Deseja continuar?"
     );
 
     if (!confirmar) {
-      event.target.value = ''; // Limpar seleção
+      event.target.value = ""; // Limpar seleção
       return;
     }
 
@@ -145,11 +145,11 @@ function Controle() {
       // Recarregar dados
       await carregarResumo();
     } else {
-      alert('Erro ao importar backup:\n' + resultado.mensagem);
+      alert("Erro ao importar backup:\n" + resultado.mensagem);
     }
 
     // Limpar input
-    event.target.value = '';
+    event.target.value = "";
   };
 
   const resumoFiltrado = resumoClientes.filter((cliente) => {
@@ -216,7 +216,9 @@ function Controle() {
             {resumoClientes.filter((c) => c.status === "atrasado").length})
           </button>
           <button
-            className={`filtro-btn ${filtroStatus === "ativos" ? "active" : ""}`}
+            className={`filtro-btn ${
+              filtroStatus === "ativos" ? "active" : ""
+            }`}
             onClick={() => setFiltroStatus("ativos")}
           >
             Em Dia ({resumoClientes.filter((c) => c.status === "ativo").length})
@@ -229,15 +231,18 @@ function Controle() {
             onClick={handleExportarBackup}
             title="Exportar backup completo em JSON (clientes e empréstimos)"
           >
-            💾 Exportar Backup
+            💾 Exportar
           </button>
-          <label className="btn-backup btn-backup-import" title="Importar backup de arquivo JSON">
-            📂 Importar Backup
+          <label
+            className="btn-backup btn-backup-import"
+            title="Importar backup de arquivo JSON"
+          >
+            📂 Importar
             <input
               type="file"
               accept=".json"
               onChange={handleImportarBackup}
-              style={{ display: 'none' }}
+              style={{ display: "none" }}
             />
           </label>
         </div>
@@ -287,81 +292,82 @@ function Controle() {
                   </div>
                 </div>
 
-              <div className="controle-valores">
-                <div className="controle-valor-item">
-                  <span className="controle-label">Empréstimos Ativos</span>
-                  <span className="controle-numero">
-                    {cliente.totalEmprestimos}
-                  </span>
+                <div className="controle-valores">
+                  <div className="controle-valor-item">
+                    <span className="controle-label">Empréstimos Ativos</span>
+                    <span className="controle-numero">
+                      {cliente.totalEmprestimos}
+                    </span>
+                  </div>
+                  <div className="controle-valor-item">
+                    <span className="controle-label">Valor Original</span>
+                    <span className="controle-numero">
+                      {formatarMoeda(cliente.totalOriginal)}
+                    </span>
+                  </div>
+                  <div className="controle-valor-item destaque">
+                    <span className="controle-label">Saldo Devedor</span>
+                    <span className="controle-numero-destaque">
+                      {formatarMoeda(cliente.totalDevedor)}
+                    </span>
+                  </div>
                 </div>
-                <div className="controle-valor-item">
-                  <span className="controle-label">Valor Original</span>
-                  <span className="controle-numero">
-                    {formatarMoeda(cliente.totalOriginal)}
-                  </span>
-                </div>
-                <div className="controle-valor-item destaque">
-                  <span className="controle-label">Saldo Devedor</span>
-                  <span className="controle-numero-destaque">
-                    {formatarMoeda(cliente.totalDevedor)}
-                  </span>
-                </div>
-              </div>
 
-              {/* Detalhes dos Empréstimos - Apenas se expandido */}
-              {isExpandido && (
-                <div className="controle-emprestimos-detalhes">
-                  {cliente.emprestimos.map((emp) => {
-                    const resumoEmp = calcularResumoEmprestimo(emp);
+                {/* Detalhes dos Empréstimos - Apenas se expandido */}
+                {isExpandido && (
+                  <div className="controle-emprestimos-detalhes">
+                    {cliente.emprestimos.map((emp) => {
+                      const resumoEmp = calcularResumoEmprestimo(emp);
 
-                    return (
-                      <div key={emp.id} className="controle-emprestimo-mini">
-                        <div className="emprestimo-mini-info">
-                          <span className="emprestimo-mini-label">
-                            {formatarMoeda(resumoEmp.valorOriginal)} •{" "}
-                            {resumoEmp.numeroParcelas}x
-                          </span>
-                          <span className="emprestimo-mini-saldo">
-                            Devedor: {formatarMoeda(resumoEmp.saldoDevedor)}
-                          </span>
-                        </div>
+                      return (
+                        <div key={emp.id} className="controle-emprestimo-mini">
+                          <div className="emprestimo-mini-info">
+                            <span className="emprestimo-mini-label">
+                              {formatarMoeda(resumoEmp.valorOriginal)} •{" "}
+                              {resumoEmp.numeroParcelas}x
+                            </span>
+                            <span className="emprestimo-mini-saldo">
+                              Devedor: {formatarMoeda(resumoEmp.saldoDevedor)}
+                            </span>
+                          </div>
 
-                        {/* Parcelas em aberto */}
-                        <div className="parcelas-mini">
-                          {emp.parcelas
-                            .filter((p) => p.valorPago === 0)
-                            .map((parcela) => {
-                              const calcParcela = calcularJurosParcela(parcela);
+                          {/* Parcelas em aberto */}
+                          <div className="parcelas-mini">
+                            {emp.parcelas
+                              .filter((p) => p.valorPago === 0)
+                              .map((parcela) => {
+                                const calcParcela =
+                                  calcularJurosParcela(parcela);
 
-                              return (
-                                <div
-                                  key={parcela.numero}
-                                  className={`parcela-mini ${calcParcela.status}`}
-                                >
-                                  <span className="parcela-mini-numero">
-                                    P{parcela.numero}
-                                  </span>
-                                  <span className="parcela-mini-venc">
-                                    {formatarData(parcela.dataVencimento)}
-                                  </span>
-                                  <span className="parcela-mini-valor">
-                                    {formatarMoeda(calcParcela.totalParcela)}
-                                  </span>
-                                  {calcParcela.diasAtraso > 0 && (
-                                    <span className="parcela-mini-atraso">
-                                      +{calcParcela.diasAtraso}d
+                                return (
+                                  <div
+                                    key={parcela.numero}
+                                    className={`parcela-mini ${calcParcela.status}`}
+                                  >
+                                    <span className="parcela-mini-numero">
+                                      P{parcela.numero}
                                     </span>
-                                  )}
-                                </div>
-                              );
-                            })}
+                                    <span className="parcela-mini-venc">
+                                      {formatarData(parcela.dataVencimento)}
+                                    </span>
+                                    <span className="parcela-mini-valor">
+                                      {formatarMoeda(calcParcela.totalParcela)}
+                                    </span>
+                                    {calcParcela.diasAtraso > 0 && (
+                                      <span className="parcela-mini-atraso">
+                                        +{calcParcela.diasAtraso}d
+                                      </span>
+                                    )}
+                                  </div>
+                                );
+                              })}
+                          </div>
                         </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
             );
           })}
         </div>
