@@ -99,13 +99,14 @@ export async function importarBackupJSON(arquivo, sobrescrever = false) {
         // Importar empréstimos deste cliente
         const emprestimosCliente = backup.emprestimos[clienteBackup.id] || [];
         for (const emprestimo of emprestimosCliente) {
-          // Adicionar empréstimo com o ID do cliente existente
+          // Criar novo empréstimo sem o ID antigo
           const emprestimoNovo = {
-            ...emprestimo,
             clienteId: clienteExistente.id,
-            id: undefined // Deixar o banco gerar novo ID
+            valorTotal: emprestimo.valorTotal,
+            numeroParcelas: emprestimo.numeroParcelas,
+            dataEmprestimo: emprestimo.dataEmprestimo,
+            parcelas: emprestimo.parcelas
           };
-          delete emprestimoNovo.id;
 
           await adicionarEmprestimo(emprestimoNovo);
           emprestimosImportados++;
@@ -124,12 +125,14 @@ export async function importarBackupJSON(arquivo, sobrescrever = false) {
         // Importar empréstimos deste cliente
         const emprestimosCliente = backup.emprestimos[clienteBackup.id] || [];
         for (const emprestimo of emprestimosCliente) {
+          // Criar novo empréstimo sem o ID antigo
           const emprestimoNovo = {
-            ...emprestimo,
             clienteId: novoId,
-            id: undefined
+            valorTotal: emprestimo.valorTotal,
+            numeroParcelas: emprestimo.numeroParcelas,
+            dataEmprestimo: emprestimo.dataEmprestimo,
+            parcelas: emprestimo.parcelas
           };
-          delete emprestimoNovo.id;
 
           await adicionarEmprestimo(emprestimoNovo);
           emprestimosImportados++;
