@@ -11,6 +11,7 @@ import {
   formatarData,
 } from "../utils/calculos";
 import { exportarDetalhado, exportarResumo } from "../utils/exportarExcel";
+import { exportarExcelCompleto } from "../utils/exportarExcelAvancado";
 
 function Controle() {
   const [resumoClientes, setResumoClientes] = useState([]);
@@ -179,18 +180,25 @@ function Controle() {
 
         <div className="exportacao-grupo">
           <button
+            className="btn-export btn-export-completo"
+            onClick={() => exportarExcelCompleto(todosClientes, emprestimosMap)}
+            title="Exportar Excel Completo com 5 abas: Resumo, Parcelas, Atrasadas, A Vencer e Totalizadores"
+          >
+            📊 Excel Completo
+          </button>
+          <button
             className="btn-export btn-export-resumo"
             onClick={() => exportarResumo(todosClientes, emprestimosMap)}
-            title="Exportar resumo dos clientes"
+            title="Exportar resumo dos clientes (CSV)"
           >
-            📊 Resumo
+            📄 Resumo CSV
           </button>
           <button
             className="btn-export btn-export-detalhado"
             onClick={() => exportarDetalhado(todosClientes, emprestimosMap)}
-            title="Exportar dados detalhados"
+            title="Exportar dados detalhados (CSV)"
           >
-            📑 Detalhado
+            📑 Detalhado CSV
           </button>
         </div>
       </div>

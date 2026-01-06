@@ -1051,6 +1051,18 @@ body {
   box-shadow: 0 6px 18px rgba(155, 89, 182, 0.4);
 }
 
+.btn-export-completo {
+  background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+  color: white;
+  font-size: 14px;
+  padding: 12px 24px;
+}
+
+.btn-export-completo:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(39, 174, 96, 0.5);
+}
+
 /* Lista de Controle */
 .controle-lista {
   display: flex;
