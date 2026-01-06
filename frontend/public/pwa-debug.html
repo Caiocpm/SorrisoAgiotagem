@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PWA Debug - Sorriso</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .check {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 4px solid #ccc;
+        }
+        .check.success {
+            border-color: #4CAF50;
+        }
+        .check.error {
+            border-color: #f44336;
+        }
+        .check.warning {
+            border-color: #ff9800;
+        }
+        h1 { color: #001F3F; }
+        code {
+            background: #eee;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 14px;
+        }
+        pre {
+            background: #eee;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 Diagnóstico PWA</h1>
+    <div id="results"></div>
+
+    <script>
+        const results = document.getElementById('results');
+
+        function addCheck(title, status, message, details = '') {
+            const div = document.createElement('div');
+            div.className = `check ${status}`;
+            div.innerHTML = `
+                <h3>${status === 'success' ? '✅' : status === 'error' ? '❌' : '⚠️'} ${title}</h3>
+                <p>${message}</p>
+                ${details ? `<pre>${details}</pre>` : ''}
+            `;
+            results.appendChild(div);
+        }
+
+        // 1. Verificar HTTPS
+        if (location.protocol === 'https:' || location.hostname === 'localhost') {
+            addCheck('HTTPS', 'success', 'Site está sendo servido via HTTPS ou localhost');
+        } else {
+            addCheck('HTTPS', 'error', 'PWA requer HTTPS em produção!');
+        }
+
+        // 2. Verificar Service Worker
+        if ('serviceWorker' in navigator) {
+            addCheck('Service Worker API', 'success', 'Navegador suporta Service Worker');
+
+            navigator.serviceWorker.getRegistrations().then(registrations => {
+                if (registrations.length > 0) {
+                    const details = registrations.map(reg =>
+                        `Scope: ${reg.scope}\nActive: ${!!reg.active}\nWaiting: ${!!reg.waiting}\nInstalling: ${!!reg.installing}`
+                    ).join('\n\n');
+                    addCheck('Service Worker Registrado', 'success',
+                        `${registrations.length} service worker(s) registrado(s)`, details);
+                } else {
+                    addCheck('Service Worker Registrado', 'error',
+                        'Nenhum service worker registrado ainda');
+                }
+            });
+        } else {
+            addCheck('Service Worker API', 'error', 'Navegador não suporta Service Worker');
+        }
+
+        // 3. Verificar Manifest
+        const manifestLink = document.querySelector('link[rel="manifest"]');
+        if (manifestLink) {
+            addCheck('Link do Manifest', 'success', `Manifest linkado: ${manifestLink.href}`);
+
+            fetch(manifestLink.href)
+                .then(r => r.json())
+                .then(manifest => {
+                    addCheck('Manifest Carregado', 'success',
+                        'Manifest.json carregado com sucesso',
+                        JSON.stringify(manifest, null, 2));
+
+                    // Verificar campos obrigatórios
+                    const required = ['name', 'icons', 'start_url', 'display'];
+                    const missing = required.filter(field => !manifest[field]);
+
+                    if (missing.length === 0) {
+                        addCheck('Campos Obrigatórios', 'success',
+                            'Todos os campos obrigatórios presentes');
+                    } else {
+                        addCheck('Campos Obrigatórios', 'error',
+                            `Campos faltando: ${missing.join(', ')}`);
+                    }
+
+                    // Verificar ícones
+                    if (manifest.icons && manifest.icons.length > 0) {
+                        const has192 = manifest.icons.some(i => i.sizes.includes('192'));
+                        const has512 = manifest.icons.some(i => i.sizes.includes('512'));
+
+                        if (has192 && has512) {
+                            addCheck('Ícones PWA', 'success',
+                                'Ícones 192x192 e 512x512 configurados');
+                        } else {
+                            addCheck('Ícones PWA', 'warning',
+                                `Faltando: ${!has192 ? '192x192 ' : ''}${!has512 ? '512x512' : ''}`);
+                        }
+                    }
+                })
+                .catch(err => {
+                    addCheck('Manifest Carregado', 'error',
+                        `Erro ao carregar manifest: ${err.message}`);
+                });
+        } else {
+            addCheck('Link do Manifest', 'error', 'Tag <link rel="manifest"> não encontrada');
+        }
+
+        // 4. Verificar beforeinstallprompt
+        let promptReceived = false;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            promptReceived = true;
+            addCheck('beforeinstallprompt', 'success',
+                'Evento beforeinstallprompt disparado! O PWA pode ser instalado.');
+        });
+
+        setTimeout(() => {
+            if (!promptReceived) {
+                addCheck('beforeinstallprompt', 'warning',
+                    'Evento beforeinstallprompt NÃO disparou ainda. Possíveis razões:\n' +
+                    '- PWA já está instalado\n' +
+                    '- Falta engajamento do usuário (visitar 2x em 5 min)\n' +
+                    '- Algum critério de instalabilidade não foi atendido\n' +
+                    '- Service Worker ainda não está ativo');
+            }
+        }, 3000);
+
+        // 5. Verificar se já está instalado
+        if (window.matchMedia('(display-mode: standalone)').matches) {
+            addCheck('Status de Instalação', 'success',
+                'PWA já está instalado e rodando em modo standalone!');
+        } else {
+            addCheck('Status de Instalação', 'warning',
+                'PWA não está instalado (rodando no navegador)');
+        }
+
+        // 6. Verificar tema
+        const themeColor = document.querySelector('meta[name="theme-color"]');
+        if (themeColor) {
+            addCheck('Theme Color', 'success', `Theme color definido: ${themeColor.content}`);
+        } else {
+            addCheck('Theme Color', 'warning', 'Meta tag theme-color não encontrada');
+        }
+    </script>
+</body>
+</html>
