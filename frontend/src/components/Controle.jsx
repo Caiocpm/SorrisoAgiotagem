@@ -10,8 +10,7 @@ import {
   formatarMoeda,
   formatarData,
 } from "../utils/calculos";
-import { exportarDetalhado, exportarResumo } from "../utils/exportarExcel";
-import { exportarExcelCompleto } from "../utils/exportarExcelAvancado";
+import { exportarBackupJSON, importarBackupJSON } from "../utils/backupRestore";
 
 function Controle() {
   const [resumoClientes, setResumoClientes] = useState([]);
@@ -107,6 +106,52 @@ function Controle() {
     }));
   };
 
+  const handleExportarBackup = async () => {
+    const resultado = await exportarBackupJSON();
+    if (resultado.sucesso) {
+      alert(resultado.mensagem);
+    } else {
+      alert('Erro ao exportar backup:\n' + resultado.mensagem);
+    }
+  };
+
+  const handleImportarBackup = async (event) => {
+    const arquivo = event.target.files[0];
+    if (!arquivo) return;
+
+    if (!arquivo.name.endsWith('.json')) {
+      alert('Por favor, selecione um arquivo JSON válido.');
+      return;
+    }
+
+    const confirmar = window.confirm(
+      'Importar backup?\n\n' +
+      '⚠️ IMPORTANTE:\n' +
+      '• Clientes com mesmo celular serão mesclados\n' +
+      '• Novos empréstimos serão adicionados\n' +
+      '• Dados existentes não serão apagados\n\n' +
+      'Deseja continuar?'
+    );
+
+    if (!confirmar) {
+      event.target.value = ''; // Limpar seleção
+      return;
+    }
+
+    const resultado = await importarBackupJSON(arquivo, false);
+
+    if (resultado.sucesso) {
+      alert(resultado.mensagem);
+      // Recarregar dados
+      await carregarResumo();
+    } else {
+      alert('Erro ao importar backup:\n' + resultado.mensagem);
+    }
+
+    // Limpar input
+    event.target.value = '';
+  };
+
   const resumoFiltrado = resumoClientes.filter((cliente) => {
     if (filtroStatus === "atrasados") return cliente.status === "atrasado";
     if (filtroStatus === "ativos") return cliente.status === "ativo";
@@ -178,28 +223,23 @@ function Controle() {
           </button>
         </div>
 
-        <div className="exportacao-grupo">
+        <div className="backup-grupo">
           <button
-            className="btn-export btn-export-completo"
-            onClick={() => exportarExcelCompleto(todosClientes, emprestimosMap)}
-            title="Exportar Excel Completo com 5 abas: Resumo, Parcelas, Atrasadas, A Vencer e Totalizadores"
+            className="btn-backup btn-backup-export"
+            onClick={handleExportarBackup}
+            title="Exportar backup completo em JSON (clientes e empréstimos)"
           >
-            📊 Excel Completo
+            💾 Exportar Backup
           </button>
-          <button
-            className="btn-export btn-export-resumo"
-            onClick={() => exportarResumo(todosClientes, emprestimosMap)}
-            title="Exportar resumo dos clientes (CSV)"
-          >
-            📄 Resumo CSV
-          </button>
-          <button
-            className="btn-export btn-export-detalhado"
-            onClick={() => exportarDetalhado(todosClientes, emprestimosMap)}
-            title="Exportar dados detalhados (CSV)"
-          >
-            📑 Detalhado CSV
-          </button>
+          <label className="btn-backup btn-backup-import" title="Importar backup de arquivo JSON">
+            📂 Importar Backup
+            <input
+              type="file"
+              accept=".json"
+              onChange={handleImportarBackup}
+              style={{ display: 'none' }}
+            />
+          </label>
         </div>
       </div>
 

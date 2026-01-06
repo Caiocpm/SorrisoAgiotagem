@@ -1017,50 +1017,47 @@ body {
   box-shadow: 0 4px 15px rgba(46, 204, 113, 0.4);
 }
 
-/* Botões de Exportação */
-.btn-export {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 50px;
-  cursor: pointer;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+/* Botões de Backup/Restore */
+.backup-grupo {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
-.btn-export-resumo {
+.btn-backup {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-backup-export {
   background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
   color: white;
 }
 
-.btn-export-resumo:hover {
+.btn-backup-export:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(52, 152, 219, 0.4);
+  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
 }
 
-.btn-export-detalhado {
-  background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
-  color: white;
-}
-
-.btn-export-detalhado:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(155, 89, 182, 0.4);
-}
-
-.btn-export-completo {
+.btn-backup-import {
   background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
   color: white;
-  font-size: 14px;
-  padding: 12px 24px;
 }
 
-.btn-export-completo:hover {
+.btn-backup-import:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(39, 174, 96, 0.5);
+  box-shadow: 0 4px 12px rgba(39, 174, 96, 0.3);
 }
 
 /* Lista de Controle */
